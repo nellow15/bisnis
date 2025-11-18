@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= title %> - Pterodactyl Panel</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <div class="logo">
+                <h1>Pterodactyl Panel</h1>
+            </div>
+            <nav class="navigation">
+                <a href="/" class="nav-link <%= page === 'home' ? 'active' : '' %>">Home</a>
+                <a href="/chat" class="nav-link <%= page === 'chat' ? 'active' : '' %>">Chat Room</a>
+                <a href="/admin" class="nav-link <%= page === 'admin' ? 'active' : '' %>">Admin Panel</a>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            <%- body %>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; 2024 Pterodactyl Panel System. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script src="/js/main.js"></script>
+    <% if (page === 'admin') { %>
+        <script src="/js/admin.js"></script>
+    <% } %>
+    <% if (page === 'chat') { %>
+        <script src="/js/chat.js"></script>
+    <% } %>
+</body>
+</html>

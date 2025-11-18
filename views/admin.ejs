@@ -1,0 +1,137 @@
+<% const body = `
+    <div class="admin-container">
+        <% if (!user) { %>
+            <div class="login-section">
+                <div class="login-card">
+                    <h2 class="login-title">Admin Login</h2>
+                    <form id="loginForm" class="form">
+                        <div class="form-group">
+                            <label for="adminUsername" class="form-label">Username:</label>
+                            <input type="text" id="adminUsername" class="form-input" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="adminPassword" class="form-label">Password:</label>
+                            <input type="password" id="adminPassword" class="form-input" required>
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" class="btn btn-primary btn-full">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        <% } else { %>
+            <div class="admin-panel">
+                <div class="panel-header">
+                    <h2 class="panel-title">Panel Management</h2>
+                    <div class="user-info">
+                        <span>Welcome, <strong><%= user.username %></strong></span>
+                        <button id="logoutBtn" class="btn btn-secondary btn-small">Logout</button>
+                    </div>
+                </div>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-value"><%= stats.total %></div>
+                        <div class="stat-label">Total Requests</div>
+                    </div>
+                    <div class="stat-card stat-pending">
+                        <div class="stat-value"><%= stats.pending %></div>
+                        <div class="stat-label">Pending</div>
+                    </div>
+                    <div class="stat-card stat-approved">
+                        <div class="stat-value"><%= stats.approved %></div>
+                        <div class="stat-label">Approved</div>
+                    </div>
+                    <div class="stat-card stat-rejected">
+                        <div class="stat-value"><%= stats.rejected %></div>
+                        <div class="stat-label">Rejected</div>
+                    </div>
+                </div>
+
+                <div class="requests-section">
+                    <h3 class="section-title">Panel Requests</h3>
+                    <div class="table-container">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Username</th>
+                                    <th>IP Address</th>
+                                    <th>Status</th>
+                                    <th>Created At</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <% if (panelRequests.length === 0) { %>
+                                    <tr>
+                                        <td colspan="6" class="no-data">No panel requests found</td>
+                                    </tr>
+                                <% } else { %>
+                                    <% panelRequests.forEach(request => { %>
+                                        <tr>
+                                            <td><%= request.id %></td>
+                                            <td><%= request.username %></td>
+                                            <td><%= request.masked_ip %></td>
+                                            <td>
+                                                <span class="status-badge status-<%= request.status %>">
+                                                    <%= request.status %>
+                                                </span>
+                                            </td>
+                                            <td><%= new Date(request.created_at).toLocaleString() %></td>
+                                            <td>
+                                                <button 
+                                                    onclick="openActionModal(<%= request.id %>, '<%= request.username %>', '<%= request.status %>', '<%= request.admin_notes || '' %>')" 
+                                                    class="btn btn-primary btn-small">
+                                                    Manage
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    <% }) %>
+                                <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Modal -->
+            <div id="actionModal" class="modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Manage Panel Request</h3>
+                        <span class="close" onclick="closeActionModal()">&times;</span>
+                    </div>
+                    <div class="modal-body">
+                        <div id="requestDetails" class="request-details">
+                            <div class="detail-item">
+                                <label>Request ID:</label>
+                                <span id="detailId">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Username:</label>
+                                <span id="detailUsername">-</span>
+                            </div>
+                            <div class="detail-item">
+                                <label>Current Status:</label>
+                                <span id="detailStatus">-</span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="adminNotes" class="form-label">Admin Notes:</label>
+                            <textarea id="adminNotes" class="form-textarea" rows="4" placeholder="Add notes for this request..."></textarea>
+                        </div>
+                        <div class="action-buttons">
+                            <button onclick="updateRequest('approved')" class="btn btn-success">Approve Request</button>
+                            <button onclick="updateRequest('rejected')" class="btn btn-danger">Reject Request</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    </div>
+
+    <div id="notification" class="notification"></div>
+` %>
+
+<%- body %>

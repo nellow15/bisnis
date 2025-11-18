@@ -1,0 +1,37 @@
+<% const body = `
+    <div class="chat-container">
+        <div class="chat-header">
+            <h2 class="chat-title">Community Chat Room</h2>
+            <p class="chat-subtitle">
+                Your IP address will be masked for privacy (format: XXX.XXX.***.***)
+            </p>
+        </div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <div class="message-system">
+                <div class="message-content">
+                    Loading messages...
+                </div>
+            </div>
+        </div>
+        
+        <div class="chat-input-container">
+            <input 
+                type="text" 
+                id="messageInput" 
+                class="chat-input" 
+                placeholder="Type your message here..."
+                maxlength="500"
+            >
+            <button onclick="sendMessage()" class="btn btn-primary">Send</button>
+        </div>
+        
+        <div class="chat-info">
+            <p>Messages are public and will be visible to all users. Please be respectful.</p>
+        </div>
+    </div>
+
+    <div id="notification" class="notification"></div>
+` %>
+
+<%- body %>

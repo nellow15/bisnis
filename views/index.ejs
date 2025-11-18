@@ -1,0 +1,84 @@
+<% const body = `
+    <section class="hero-section">
+        <div class="hero-content">
+            <h2 class="hero-title">Pterodactyl Panel Request System</h2>
+            <p class="hero-description">
+                Sistem manajemen panel Pterodactyl yang aman dan efisien. Request panel baru dengan mudah 
+                dan pantau status permintaan Anda.
+            </p>
+            <button class="btn btn-primary btn-large" onclick="openModal()">
+                Buat Panel Request
+            </button>
+        </div>
+    </section>
+
+    <section class="features-section">
+        <h3 class="section-title">Fitur Utama</h3>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚙️</div>
+                <h4 class="feature-title">Setup Mudah</h4>
+                <p class="feature-description">
+                    Proses pembuatan panel yang mudah dan cepat dengan formulir yang sederhana
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔒</div>
+                <h4 class="feature-title">Keamanan</h4>
+                <p class="feature-description">
+                    Sistem keamanan terjamin dengan autentikasi dan enkripsi data
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💬</div>
+                <h4 class="feature-title">Komunitas</h4>
+                <p class="feature-description">
+                    Terhubung dengan komunitas melalui room chat yang tersedia
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h4 class="feature-title">Manajemen</h4>
+                <p class="feature-description">
+                    Sistem manajemen panel yang terintegrasi dengan database MySQL
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal Form -->
+    <div id="requestModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Formulir Panel Request</h3>
+                <span class="close" onclick="closeModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="panelForm" class="form">
+                    <div class="form-group">
+                        <label for="username" class="form-label">Username:</label>
+                        <input type="text" id="username" name="username" class="form-input" required>
+                        <div class="form-help">Username harus unik dan tidak mengandung spasi</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password" class="form-label">Password:</label>
+                        <input type="password" id="password" name="password" class="form-input" required>
+                        <div class="form-help">Password minimal 6 karakter</div>
+                    </div>
+                    <div class="form-group">
+                        <label for="confirmPassword" class="form-label">Confirm Password:</label>
+                        <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn btn-secondary" onclick="closeModal()">Batal</button>
+                        <button type="submit" class="btn btn-primary">Submit Request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="notification" class="notification"></div>
+` %>
+
+<%- body %>
